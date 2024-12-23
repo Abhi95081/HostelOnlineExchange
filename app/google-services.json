@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "325873936132",
+    "project_id": "hostel-onlineexchange",
+    "storage_bucket": "hostel-onlineexchange.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:325873936132:android:d51d338f95e01aa0bb9251",
+        "android_client_info": {
+          "package_name": "com.example.clx"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAs1At5IL-B1IsmP9TOaMZpVf1K6o_18Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
