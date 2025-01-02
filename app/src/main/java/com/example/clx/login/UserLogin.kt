@@ -29,11 +29,10 @@ import androidx.navigation.NavController
 import com.example.clx.AuthState
 import com.example.clx.AuthviewModel
 
-
 @Composable
 
-fun signupPage(modifier: Modifier,
-               navController: NavController, authviewModel: AuthviewModel) {
+fun UserLogin(modifier: androidx.compose.ui.Modifier,
+              navController: NavController, authviewModel: AuthviewModel){
 
     var email by remember {
         mutableStateOf("")
@@ -50,7 +49,7 @@ fun signupPage(modifier: Modifier,
         when(authState.value){
             is AuthState.Authenticated -> navController.navigate("home")
             is AuthState.Error -> Toast.makeText(context,
-                (authState.value as AuthState.Error).message,Toast.LENGTH_SHORT).show()
+                (authState.value as AuthState.Error).message, Toast.LENGTH_SHORT).show()
             else-> Unit
         }
     }
@@ -69,23 +68,25 @@ fun signupPage(modifier: Modifier,
 
         Spacer(modifier = Modifier.height(16.dp))
 
-       OutlinedTextField(value = email, onValueChange = {
-           email = it
-       },
-           label = {
-               Text(text = "Email")
-           },
-           singleLine = true
+        OutlinedTextField(value = email, onValueChange = {
+            email = it
+        },
+            label = {
+                Text(text = "Email")
+            },
+            singleLine = true
 
-       )
+        )
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        OutlinedTextField(value = pass, onValueChange = {
+        OutlinedTextField(
+            value = pass,
+            onValueChange = {
             pass = it
         },label = {
-                Text(text = "Password")
-            },
+            Text(text = "Password")
+        },
             singleLine = true,
             visualTransformation = PasswordVisualTransformation()
         )
@@ -93,19 +94,10 @@ fun signupPage(modifier: Modifier,
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(onClick = {
-            authviewModel.signup(email,pass)
+            authviewModel.UserLogin(email,pass)
         }, enabled = authState.value != AuthState.Loading
         ) {
-            Text(text = "Create Account")
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        TextButton(onClick = {
-            navController.navigate("user")
-        }) {
-            Text(text = "Already have Account")
+            Text(text = "Login")
         }
     }
 }
-

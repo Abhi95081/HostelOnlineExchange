@@ -75,22 +75,30 @@ dependencies {
 
 
     // Lifecycle extensions for Compose
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.7")
-
+    implementation(libs.androidx.lifecycle.runtime.compose)
 
     // ViewModel
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
 
-
-
-
-    // Import the BoM for the Firebase platform
-    implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
 
     // Add the dependency for the Firebase Authentication library
     // When using the BoM, you don't specify versions in Firebase library dependencies
-    implementation("com.google.firebase:firebase-auth")
+    implementation(libs.google.firebase.auth)
+
+    implementation(libs.play.services.auth)
+
+    implementation (platform(libs.firebase.bom))
+    implementation (libs.firebase.auth.ktx)
+    implementation (libs.play.services.safetynet)
+
+
+
+        implementation (platform("com.google.firebase:firebase-bom:32.1.1")) // Ensure you use the latest BOM
+        implementation ("com.google.firebase:firebase-auth")
+        implementation ("androidx.compose.material:material:1.5.0" )// For Compose material components
+        implementation ("androidx.navigation:navigation-compose:2.7.1") // For NavController
+
 
 
 
