@@ -20,9 +20,9 @@ import com.example.clx.AuthviewModel
 fun homepage(modifier: androidx.compose.ui.Modifier, navController: NavController, authviewModel: AuthviewModel){
 
 //
-    val authState = authviewModel.authState.observeAsState()
-
 //    val authState = authviewModel.authState.observeAsState()
+
+    val authState = authviewModel.authState.observeAsState()
 
         LaunchedEffect(authState.value) {
             when(authState.value){

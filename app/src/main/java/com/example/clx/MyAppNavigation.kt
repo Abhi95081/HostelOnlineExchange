@@ -12,7 +12,7 @@ import com.example.clx.login.UserLogin
 import com.example.clx.login.homepage
 import com.example.clx.login.loginPage
 import com.example.clx.login.signupPage
-import com.example.clx.mobilePhone.MobileSignup
+
 
 @Composable
 fun MyNavigation(modifier: Modifier = Modifier, authviewModel: AuthviewModel) {
@@ -47,9 +47,7 @@ fun MyNavigation(modifier: Modifier = Modifier, authviewModel: AuthviewModel) {
             composable("home") {
                 homepage(modifier, navController, authviewModel)
             }
-            composable("phone") {
-                MobileSignup(modifier, navController,authviewModel)
-            }
+
             composable("user") {
                 UserLogin(modifier, navController, authviewModel)
             }
