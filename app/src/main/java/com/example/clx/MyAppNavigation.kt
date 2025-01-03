@@ -48,7 +48,7 @@ fun MyNavigation(modifier: Modifier = Modifier, authviewModel: AuthviewModel) {
                 homepage(modifier, navController, authviewModel)
             }
             composable("phone") {
-                MobileSignup(modifier, navController)
+                MobileSignup(modifier, navController,authviewModel)
             }
             composable("user") {
                 UserLogin(modifier, navController, authviewModel)
