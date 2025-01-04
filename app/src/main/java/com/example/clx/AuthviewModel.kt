@@ -68,9 +68,10 @@ class AuthviewModel : ViewModel() {
 
     fun signOut() {
         auth.signOut()
-//        _isUserLoggedIn.value = false
+        _isUserLoggedIn.value = false
         _authState.value = AuthState.Unauthenticated
     }
+
 
 }
 
@@ -79,4 +80,5 @@ sealed class AuthState {
      data object Unauthenticated : AuthState()
      data object Loading : AuthState()
      class Error(val message: String) : AuthState()
+
 }
