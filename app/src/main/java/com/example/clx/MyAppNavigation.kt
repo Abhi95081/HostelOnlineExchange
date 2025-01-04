@@ -30,8 +30,8 @@ fun MyNavigation(modifier: Modifier = Modifier, authviewModel: AuthviewModel) {
                 popUpTo("login") { inclusive = true }
             }
         } else {
-            navController.navigate("home") {  // Navigate to home if not logged in
-                popUpTo("login") { inclusive = true }
+            navController.navigate("login") {  // Navigate to home if not logged in
+                popUpTo("home") { inclusive = true }
             }
         }
     }

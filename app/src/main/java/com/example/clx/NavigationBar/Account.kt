@@ -19,17 +19,17 @@ import com.example.clx.AuthviewModel
 
 
 @Composable
-fun Account(modifier: Modifier, navController: NavController, authviewModel: AuthviewModel){
+fun Account(modifier: androidx.compose.ui.Modifier, navController: NavController, authviewModel: AuthviewModel){
 
-//    val authState = authviewModel.authState.observeAsState()
-//
-//
-//    LaunchedEffect(authState.value) {
-//        when(authState.value){
-//            is AuthState.Unauthenticated -> navController.navigate("login")
-//            else -> Unit
-//        }
-//    }
+    val authState = authviewModel.authState.observeAsState()
+
+
+    LaunchedEffect(authState.value) {
+        when(authState.value){
+            is AuthState.Unauthenticated -> navController.navigate("login")
+            else -> Unit
+        }
+    }
 
 
     Column(
@@ -40,11 +40,11 @@ fun Account(modifier: Modifier, navController: NavController, authviewModel: Aut
 
         Text(text = "Account Page", fontSize = 45.sp, color = Color.Gray)
 
-//        TextButton(onClick = {
-//            authviewModel.signOut()
-//        }) {
-//            androidx.compose.material3.Text(text = "Sign out")
-//        }
+        TextButton(onClick = {
+            authviewModel.signOut()
+        }) {
+            androidx.compose.material3.Text(text = "Sign out")
+        }
 
     }
 }

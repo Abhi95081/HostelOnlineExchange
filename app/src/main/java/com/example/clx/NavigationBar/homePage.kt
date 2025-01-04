@@ -1,6 +1,5 @@
 package com.example.clx.NavigationBar
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,19 +16,18 @@ import com.example.clx.AuthState
 import com.example.clx.AuthviewModel
 
 
-@SuppressLint("SuspiciousIndentation")
 @Composable
-fun Homepage(modifier: Modifier, navController: NavController, authviewModel: AuthviewModel){
+fun Homepage(modifier: Modifier, navController: NavController, authviewModel: AuthviewModel) {
 
-    val authState = authviewModel.authState.observeAsState()
-
-
-        LaunchedEffect(authState.value) {
-            when(authState.value){
-                is AuthState.Unauthenticated -> navController.navigate("login")
-                else -> Unit
-            }
-        }
+//    val authState = authviewModel.authState.observeAsState()
+//
+//
+//    LaunchedEffect(authState.value) {
+//        when(authState.value){
+//            is AuthState.Unauthenticated -> navController.navigate("login")
+//            else -> Unit
+//        }
+//    }
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -39,11 +37,11 @@ fun Homepage(modifier: Modifier, navController: NavController, authviewModel: Au
 
         Text(text = "Home Page", fontSize = 45.sp)
 
-        TextButton(onClick = {
-            authviewModel.signOut()
-        }) {
-            Text(text = "Sign out")
-        }
+//        TextButton(onClick = {
+//            authviewModel.signOut()
+//        }) {
+//            Text(text = "Sign out")
+//        }
 
     }
 
