@@ -104,4 +104,13 @@ dependencies {
 
        implementation("androidx.navigation:navigation-compose:2.8.5")
 
+    implementation("com.google.android.gms:play-services-location:18.0.0")
+
+    // room data base
+
+    implementation ("androidx.room:room-runtime:2.4.3")
+    annotationProcessor ("androidx.room:room-compiler:2.4.3")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
+
 }

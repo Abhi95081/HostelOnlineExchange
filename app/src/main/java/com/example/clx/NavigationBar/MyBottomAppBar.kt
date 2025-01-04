@@ -1,5 +1,6 @@
 package com.example.clx.NavigationBar
 
+import Homepage
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Scaffold
