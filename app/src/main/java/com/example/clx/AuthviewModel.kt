@@ -2,6 +2,7 @@ package com.example.clx
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.clx.NavigationBar.MyBottomAppBar
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -58,6 +59,7 @@ class AuthviewModel : ViewModel() {
                 if (task.isSuccessful) {
                     _isUserLoggedIn.value = true
                     _authState.value = AuthState.Authenticated
+
                 } else {
                     _authState.value = AuthState.Error(task.exception?.message ?: "Something went wrong")
                 }
@@ -69,11 +71,12 @@ class AuthviewModel : ViewModel() {
         _isUserLoggedIn.value = false
         _authState.value = AuthState.Unauthenticated
     }
+
 }
 
 sealed class AuthState {
      object Authenticated : AuthState()
-     object Unauthenticated : AuthState()
+     data object Unauthenticated : AuthState()
      data object Loading : AuthState()
      class Error(val message: String) : AuthState()
 }

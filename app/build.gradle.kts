@@ -102,4 +102,6 @@ dependencies {
 
 
 
+       implementation("androidx.navigation:navigation-compose:2.8.5")
+
 }

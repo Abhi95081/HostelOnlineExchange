@@ -32,7 +32,7 @@ import com.example.clx.AuthviewModel
 @Composable
 
 
-fun UserLogin(modifier: androidx.compose.ui.Modifier,
+fun UserLogin(modifier: Modifier,
               navController: NavController, authviewModel: AuthviewModel){
 
     var email by remember {
@@ -48,7 +48,7 @@ fun UserLogin(modifier: androidx.compose.ui.Modifier,
 
     LaunchedEffect(authState.value) {
         when(authState.value){
-            is AuthState.Authenticated -> navController.navigate("home")
+            is AuthState.Authenticated -> navController.navigate("bottom_nav_home")
             is AuthState.Error -> Toast.makeText(context,
                 (authState.value as AuthState.Error).message, Toast.LENGTH_SHORT).show()
             else-> Unit

@@ -19,13 +19,12 @@ class MainActivity : ComponentActivity() {
         setContent {
             CLXTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    MyNavigation(modifier = Modifier.padding(innerPadding), authviewModel = authviewModel)
+                    MyNavigation(
+                        modifier = Modifier.padding(innerPadding),
+                        authviewModel = authviewModel
+                    )
                 }
             }
         }
     }
-
-
-
 }
-

@@ -8,11 +8,14 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.clx.NavigationBar.Account
+import com.example.clx.NavigationBar.Homepage
+import com.example.clx.NavigationBar.MyBottomAppBar
+import com.example.clx.NavigationBar.Sell
+import com.example.clx.NavigationBar.chat
 import com.example.clx.login.UserLogin
-import com.example.clx.login.homepage
 import com.example.clx.login.loginPage
 import com.example.clx.login.signupPage
-
 
 @Composable
 fun MyNavigation(modifier: Modifier = Modifier, authviewModel: AuthviewModel) {
@@ -23,12 +26,12 @@ fun MyNavigation(modifier: Modifier = Modifier, authviewModel: AuthviewModel) {
     // LaunchedEffect to handle navigation state when the login status changes
     LaunchedEffect(isUserLoggedIn) {
         if (isUserLoggedIn) {
-            navController.navigate("home") {
+            navController.navigate("bottom_nav_home") {  // Navigate to MyBottomAppBar
                 popUpTo("login") { inclusive = true }
             }
         } else {
-            navController.navigate("login") {
-                popUpTo("home") { inclusive = true }
+            navController.navigate("home") {  // Navigate to home if not logged in
+                popUpTo("login") { inclusive = true }
             }
         }
     }
@@ -36,7 +39,7 @@ fun MyNavigation(modifier: Modifier = Modifier, authviewModel: AuthviewModel) {
     // Navigation graph
     NavHost(
         navController = navController,
-        startDestination = if (isUserLoggedIn) "home" else "login",
+        startDestination = if (isUserLoggedIn) "bottom_nav_home" else "login",  // Start depending on login state
         builder = {
             composable("login") {
                 loginPage(modifier, navController, authviewModel)
@@ -45,11 +48,22 @@ fun MyNavigation(modifier: Modifier = Modifier, authviewModel: AuthviewModel) {
                 signupPage(modifier, navController, authviewModel)
             }
             composable("home") {
-                homepage(modifier, navController, authviewModel)
+                Homepage(modifier, navController, authviewModel)
             }
-
+            composable("bottom_nav_home") {
+                MyBottomAppBar(modifier, navController, authviewModel)  // The bottom nav appears after login
+            }
             composable("user") {
                 UserLogin(modifier, navController, authviewModel)
+            }
+            composable("account") {
+                Account(modifier, navController, authviewModel)
+            }
+            composable("chat") {
+                chat(modifier, navController, authviewModel)
+            }
+            composable("sell") {
+                Sell(modifier, navController, authviewModel)
             }
         }
     )

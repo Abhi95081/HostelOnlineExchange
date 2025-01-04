@@ -1,6 +1,7 @@
 package com.example.clx.login
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -76,11 +77,13 @@ fun loginPage(modifier: Modifier, navController: NavController, authviewModel: A
      LaunchedEffect(authState) {
           when (authState) {
                is AuthState.Authenticated -> {
-                    navController.navigate("home") {
+                    navController.navigate("bottom_nav_home") {
                          popUpTo("signup") { inclusive = true }
                     }
                }
-               else -> {} // Do nothing for other states
+               else -> {
+//                    Toast.makeText(context, "Welcome", Toast.LENGTH_SHORT).show()
+               } // Do nothing for other states
           }
      }
 
@@ -98,7 +101,7 @@ fun loginPage(modifier: Modifier, navController: NavController, authviewModel: A
                color = Color.Blue
           )
 
-          Spacer(modifier = Modifier.height(20.dp))  // Reduced space between logo and text
+//          Spacer(modifier = Modifier.height(5.dp))  // Reduced space between logo and text
 
           Text(
                text = "Chandigarh University",
