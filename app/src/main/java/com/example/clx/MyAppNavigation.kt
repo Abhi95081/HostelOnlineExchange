@@ -1,21 +1,18 @@
 package com.example.clx
 
+import Account
 import Homepage
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.clx.NavigationBar.Account
-import com.example.clx.NavigationBar.MyBottomAppBar
+import com.example.clx.NavigationBar.Chat
+import com.example.clx.NavigationBar.MyBottomNavigationBar
 import com.example.clx.NavigationBar.Sell
-import com.example.clx.NavigationBar.chat
-import com.example.clx.RoomDataBase.AppDatabase
 import com.example.clx.login.UserLogin
 import com.example.clx.login.loginPage
 import com.example.clx.login.signupPage
@@ -55,7 +52,7 @@ fun MyNavigation(modifier: Modifier = Modifier, authviewModel: AuthviewModel) {
             }
 
             composable("bottom_nav_home") {
-                MyBottomAppBar(modifier, navController, authviewModel)  // The bottom nav appears after login
+                MyBottomNavigationBar(modifier, navController)  // The bottom nav appears after login
             }
             composable("user") {
                 UserLogin(modifier, navController, authviewModel)
@@ -64,11 +61,12 @@ fun MyNavigation(modifier: Modifier = Modifier, authviewModel: AuthviewModel) {
                 Account(modifier, navController, authviewModel)
             }
             composable("chat") {
-                chat(modifier, navController, authviewModel)
+                Chat(modifier, navController, authviewModel)
             }
             composable("sell") {
                 Sell(modifier, navController, authviewModel)
             }
+
         }
     )
 }
