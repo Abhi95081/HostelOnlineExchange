@@ -22,7 +22,7 @@ fun Chat(modifier: androidx.compose.ui.Modifier, navController: NavController, a
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Text(text = "Home Page", fontSize = 45.sp, color = Color.Cyan)
+        Text(text = "Chat Page", fontSize = 45.sp, color = Color.Cyan)
 
     }
 }
