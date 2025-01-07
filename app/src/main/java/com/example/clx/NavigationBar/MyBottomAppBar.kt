@@ -1,5 +1,7 @@
 package com.example.clx.NavigationBar
 
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -7,81 +9,62 @@ import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
+import com.example.clx.AuthviewModel
+import com.example.clx.NavigationBar.Pages.Account
+import com.example.clx.NavigationBar.Pages.Chat
+import com.example.clx.NavigationBar.Pages.Homepage
+import com.example.clx.NavigationBar.Pages.Sell
 
 @Composable
-fun MainScreen() {
-    var selectedSection by remember { mutableStateOf(0) }
+fun MyBottomAppBar(modifier: Modifier, navController: NavController, authviewModel: AuthviewModel) {
 
-    Scaffold(
+    val navItemList = listOf(
+        Navitems("Home",Icons.Default.Home),
+        Navitems("Chat",Icons.Default.Face),
+        Navitems("Sell",Icons.Default.Add),
+        Navitems("Account",Icons.Default.Person)
+
+    )
+
+    var selectedItem by remember { mutableIntStateOf(0) }
+
+    Scaffold(modifier=Modifier.fillMaxSize(),
         bottomBar = {
-            MyBottomNavigationBar(
-                selectedSection = selectedSection,
-                onSectionSelected = { selectedSection = it }
-            )
+            NavigationBar {
+                navItemList.forEachIndexed { index, navitems ->
+                    NavigationBarItem(
+                        selected = selectedItem == index,
+                        onClick = {
+                            selectedItem = index
+                        },
+                        label = { Text(text = navitems.label) },
+                        icon = {
+                            Icon(imageVector = navitems.icon, contentDescription = "Icon")
+                        })
+                }
+            }
         }
-    ) { innerPadding ->
-        // Content based on the selected section
-        when (selectedSection) {
-            0 -> HomeContent(Modifier.padding(innerPadding))
-            1 -> ChatContent(Modifier.padding(innerPadding))
-            2 -> AccountContent(Modifier.padding(innerPadding))
-            3 -> SellContent(Modifier.padding(innerPadding))
-        }
+        ) { innerPadding ->
+        ContentScreen(modifier.padding(innerPadding),selectedItem, navController, authviewModel)
     }
+
+
 }
 
 @Composable
-fun MyBottomNavigationBar(
-    selectedSection: Int,
-    onSectionSelected: (Int) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    BottomNavigation(modifier = modifier) {
-        BottomNavigationItem(
-            icon = { Icon(Icons.Filled.Home, contentDescription = "Home") },
-            selected = selectedSection == 0,
-            onClick = { onSectionSelected(0) }
-        )
-        BottomNavigationItem(
-            icon = { Icon(Icons.Filled.Face, contentDescription = "Chat") },
-            selected = selectedSection == 1,
-            onClick = { onSectionSelected(1) }
-        )
-        BottomNavigationItem(
-            icon = { Icon(Icons.Filled.AccountCircle, contentDescription = "Account") },
-            selected = selectedSection == 2,
-            onClick = { onSectionSelected(2) }
-        )
-        BottomNavigationItem(
-            icon = { Icon(Icons.Filled.Add, contentDescription = "Sell") },
-            selected = selectedSection == 3,
-            onClick = { onSectionSelected(3) }
-        )
+fun ContentScreen(modifier: Modifier = Modifier,selectedindex : Int, navController: NavController, authviewModel: AuthviewModel) {
+
+    when(selectedindex){
+        0 -> Homepage(modifier, navController, authviewModel)
+        1 ->  Chat(modifier, navController, authviewModel)
+        2 ->  Sell(modifier, navController, authviewModel)
+        3 -> Account(modifier, navController, authviewModel)
+
     }
-}
-
-@Composable
-fun HomeContent(modifier: Modifier) {
-    // Your Home content here
-    Text("Home Screen", modifier = modifier)
-}
-
-@Composable
-fun ChatContent(modifier: Modifier) {
-    // Your Chat content here
-    Text("Chat Screen", modifier = modifier)
-}
-
-@Composable
-fun AccountContent(modifier: Modifier) {
-    // Your Account content here
-    Text("Account Screen", modifier = modifier)
-}
-
-@Composable
-fun SellContent(modifier: Modifier) {
-    // Your Sell content here
-    Text("Sell Screen", modifier = modifier)
 }

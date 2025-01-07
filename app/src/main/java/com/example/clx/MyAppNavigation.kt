@@ -1,7 +1,7 @@
 package com.example.clx
 
-import Account
-import Homepage
+import com.example.clx.NavigationBar.Pages.Account
+import com.example.clx.NavigationBar.Pages.Homepage
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -10,9 +10,9 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.clx.NavigationBar.Chat
-import com.example.clx.NavigationBar.MyBottomNavigationBar
-import com.example.clx.NavigationBar.Sell
+import com.example.clx.NavigationBar.Pages.Chat
+import com.example.clx.NavigationBar.MyBottomAppBar
+import com.example.clx.NavigationBar.Pages.Sell
 import com.example.clx.login.UserLogin
 import com.example.clx.login.loginPage
 import com.example.clx.login.signupPage
@@ -52,7 +52,7 @@ fun MyNavigation(modifier: Modifier = Modifier, authviewModel: AuthviewModel) {
             }
 
             composable("bottom_nav_home") {
-                MyBottomNavigationBar(modifier, navController)  // The bottom nav appears after login
+                MyBottomAppBar(modifier, navController, authviewModel)  // The bottom nav appears after login
             }
             composable("user") {
                 UserLogin(modifier, navController, authviewModel)

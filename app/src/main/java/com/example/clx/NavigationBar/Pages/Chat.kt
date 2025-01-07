@@ -1,4 +1,4 @@
-package com.example.clx.NavigationBar
+package com.example.clx.NavigationBar.Pages
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

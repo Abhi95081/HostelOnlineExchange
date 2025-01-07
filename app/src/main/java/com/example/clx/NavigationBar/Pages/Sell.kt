@@ -1,4 +1,4 @@
-package com.example.clx.NavigationBar
+package com.example.clx.NavigationBar.Pages
 
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
