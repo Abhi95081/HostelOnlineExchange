@@ -1,6 +1,6 @@
 package com.example.clx
 
-import com.example.clx.NavigationBar.Pages.Account
+
 import com.example.clx.NavigationBar.Pages.Homepage
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -12,6 +12,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.clx.NavigationBar.Pages.Chat
 import com.example.clx.NavigationBar.MyBottomAppBar
+import com.example.clx.NavigationBar.Pages.Account
 import com.example.clx.NavigationBar.Pages.Sell
 import com.example.clx.login.UserLogin
 import com.example.clx.login.loginPage
