@@ -13,6 +13,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.clx.NavigationBar.Pages.Chat
 import com.example.clx.NavigationBar.MyBottomAppBar
 import com.example.clx.NavigationBar.Pages.Account
+import com.example.clx.NavigationBar.Pages.Profile
 import com.example.clx.NavigationBar.Pages.Sell
 import com.example.clx.login.UserLogin
 import com.example.clx.login.loginPage
@@ -66,6 +67,9 @@ fun MyNavigation(modifier: Modifier = Modifier, authviewModel: AuthviewModel) {
             }
             composable("sell") {
                 Sell(modifier, navController, authviewModel)
+            }
+            composable("EditProfile") {
+                Profile(modifier, navController, authviewModel)
             }
 
         }

@@ -7,6 +7,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -15,7 +16,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -25,8 +28,7 @@ import com.example.clx.R
 @Composable
 fun Account(modifier: Modifier = Modifier, navController: NavController, authviewModel: AuthviewModel) {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
+        modifier = Modifier.fillMaxSize()
             .padding(10.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start
@@ -71,13 +73,16 @@ fun Account(modifier: Modifier = Modifier, navController: NavController, authvie
             contentAlignment = Alignment.Center // Center the button inside the rectangle
         ) {
             TextButton(
-                onClick = { /*TODO: Handle Edit Profile action*/ }
+                onClick = {
+                    navController.navigate("EditProfile")
+                },
+                colors = ButtonDefaults.textButtonColors(contentColor = Color.White)
             ) {
                 Text(
                     text = "Edit Profile",
                     fontSize = 18.sp,
                     color = Color.White,
-                    fontWeight = androidx.compose.ui.text.font.FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
                 )
             }
         }
@@ -90,7 +95,12 @@ fun Account(modifier: Modifier = Modifier, navController: NavController, authvie
                 authviewModel.signOut() // Assuming a logout method exists in the AuthviewModel
                 navController.navigate("login") // Navigate to the login screen after logout
             },
-            modifier = Modifier.align(Alignment.CenterHorizontally)
+            modifier = Modifier.width(300.dp).padding(20.dp),
+            shape = androidx.compose.foundation.shape.RoundedCornerShape(15.dp),
+            colors = androidx.compose.material3.ButtonDefaults.buttonColors(
+                contentColor = Color.White,
+                containerColor = Color.Blue
+            ),
         ) {
             Text(text = "Logout")
         }

@@ -32,6 +32,7 @@ import com.example.clx.AuthviewModel
 
 @Composable
 
+// https://lottiefiles.com/free-animation/welcome-fVQthRfrOi
 fun signupPage(modifier: Modifier,
                navController: NavController, authviewModel: AuthviewModel) {
 

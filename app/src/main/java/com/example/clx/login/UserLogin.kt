@@ -6,11 +6,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -28,6 +27,14 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.clx.AuthState
 import com.example.clx.AuthviewModel
+import com.example.clx.R
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.rememberLottieComposition
+
+
 
 @Composable
 
@@ -43,6 +50,7 @@ fun UserLogin(modifier: Modifier,
         mutableStateOf("")
     }
 
+
     val authState = authviewModel.authState.observeAsState()
     val context = LocalContext.current
 
@@ -55,12 +63,18 @@ fun UserLogin(modifier: Modifier,
         }
     }
 
+    //Lotie animation
+
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.lottieanimationlogin))
+
     Column(
         modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
+        LottieAnimation(
+            modifier=Modifier.size(400.dp),
+            composition = composition)
         Text(
             text = "Enter Your Email",
             style = TextStyle(fontWeight = FontWeight.Bold),
