@@ -1,22 +1,10 @@
-package com.example.clx.login
-
 import android.widget.Toast
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.material3.Button
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -26,87 +14,95 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.clx.AuthState
 import com.example.clx.AuthviewModel
-
+import com.example.clx.R
 
 @Composable
-
-// https://lottiefiles.com/free-animation/welcome-fVQthRfrOi
-fun signupPage(modifier: Modifier,
-               navController: NavController, authviewModel: AuthviewModel) {
-
-    var email by remember {
-        mutableStateOf("")
-    }
-
-    var pass by remember {
-        mutableStateOf("")
-    }
-
+fun signupPage(
+    modifier:  Modifier,
+    navController: NavController,
+    authviewModel: AuthviewModel
+) {
+    var email by remember { mutableStateOf("") }
+    var pass by remember { mutableStateOf("") }
     val authState = authviewModel.authState.observeAsState()
     val context = LocalContext.current
 
     LaunchedEffect(authState.value) {
-        when(authState.value){
+        when (authState.value) {
             is AuthState.Authenticated -> navController.navigate("bottom_nav_home")
-            is AuthState.Error -> Toast.makeText(context,
-                (authState.value as AuthState.Error).message,Toast.LENGTH_SHORT).show()
-            else-> Unit
+            is AuthState.Error -> Toast.makeText(
+                context,
+                (authState.value as AuthState.Error).message,
+                Toast.LENGTH_SHORT
+            ).show()
+            else -> Unit
         }
     }
 
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.lottieanimationsignup))
+    val scrollState = rememberScrollState()
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(scrollState), // Enables scrolling
+        contentAlignment = Alignment.TopCenter // Ensures content alignment
     ) {
-
-        Text(
-            text = "Enter Your Email",
-            style = TextStyle(fontWeight = FontWeight.Bold),
-            fontSize = 20.sp
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-       OutlinedTextField(value = email, onValueChange = {
-           email = it
-       },
-           label = {
-               Text(text = "Email")
-           },
-           singleLine = true
-
-       )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        OutlinedTextField(value = pass, onValueChange = {
-            pass = it
-        },label = {
-                Text(text = "Password")
-            },
-            singleLine = true,
-            visualTransformation = PasswordVisualTransformation()
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Button(onClick = {
-            authviewModel.signup(email,pass)
-        }, enabled = authState.value != AuthState.Loading
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp), // Adds padding for better UX
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "Create Account")
-        }
+            LottieAnimation(
+                modifier = Modifier.size(300.dp), // Reduced size for better scrolling experience
+                composition = composition
+            )
 
-        Spacer(modifier = Modifier.height(16.dp))
+            Text(
+                text = "Enter Your Email",
+                style = TextStyle(fontWeight = FontWeight.Bold),
+                fontSize = 20.sp
+            )
 
-        TextButton(onClick = {
-            navController.navigate("user")
-        }) {
-            Text(text = "Already have Account")
+            Spacer(modifier = Modifier.height(16.dp))
+
+            OutlinedTextField(
+                value = email,
+                onValueChange = { email = it },
+                label = { Text(text = "Email") },
+                singleLine = true
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            OutlinedTextField(
+                value = pass,
+                onValueChange = { pass = it },
+                label = { Text(text = "Password") },
+                singleLine = true,
+                visualTransformation = PasswordVisualTransformation()
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Button(
+                onClick = { authviewModel.signup(email, pass) },
+                enabled = authState.value != AuthState.Loading
+            ) {
+                Text(text = "Create Account")
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            TextButton(onClick = { navController.navigate("user") }) {
+                Text(text = "Already have Account")
+            }
         }
     }
 }
-

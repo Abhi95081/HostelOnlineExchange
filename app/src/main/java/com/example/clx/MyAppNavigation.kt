@@ -17,7 +17,7 @@ import com.example.clx.NavigationBar.Pages.Profile
 import com.example.clx.NavigationBar.Pages.Sell
 import com.example.clx.login.UserLogin
 import com.example.clx.login.loginPage
-import com.example.clx.login.signupPage
+import signupPage
 
 @Composable
 fun MyNavigation(modifier: Modifier = Modifier, authviewModel: AuthviewModel) {

@@ -73,7 +73,7 @@ fun UserLogin(modifier: Modifier,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         LottieAnimation(
-            modifier=Modifier.size(400.dp),
+            modifier=Modifier.size(300.dp),
             composition = composition)
         Text(
             text = "Enter Your Email",
