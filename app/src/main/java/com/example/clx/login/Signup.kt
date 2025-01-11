@@ -65,7 +65,7 @@ fun signupPage(
             )
 
             Text(
-                text = "Enter Your Email",
+                text = "Create Your Account",
                 style = TextStyle(fontWeight = FontWeight.Bold),
                 fontSize = 20.sp
             )

@@ -76,7 +76,7 @@ fun UserLogin(modifier: Modifier,
             modifier=Modifier.size(300.dp),
             composition = composition)
         Text(
-            text = "Enter Your Email",
+            text = "User Login",
             style = TextStyle(fontWeight = FontWeight.Bold),
             fontSize = 20.sp
         )
