@@ -1,23 +1,30 @@
 package com.example.clx.NavigationBar.Pages
 
-import android.graphics.Paint.Style
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.LinkAnnotation
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -26,9 +33,17 @@ import com.example.clx.AuthviewModel
 import com.example.clx.R
 
 @Composable
-fun Account(modifier: Modifier = Modifier, navController: NavController, authviewModel: AuthviewModel) {
+fun Account(
+    modifier: Modifier = Modifier,
+    navController: NavController,
+    authviewModel: AuthviewModel,
+) {
+
+    var name by remember { mutableStateOf("HLX User") }
+
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
             .padding(10.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start
@@ -53,30 +68,28 @@ fun Account(modifier: Modifier = Modifier, navController: NavController, authvie
             Spacer(modifier = Modifier.width(16.dp)) // Add space between the image and text
 
             Text(
-                text = "HLX User",
+                text = name ,
                 fontSize = 18.sp,
                 color = Color.Black,
-                fontWeight = androidx.compose.ui.text.font.FontWeight.Bold
+                fontWeight = FontWeight.Bold
             )
         }
 
         Spacer(modifier = Modifier.height(50.dp))
 
-        Box(
-            modifier = Modifier.padding(20.dp)
-                .width(300.dp) // Set the width of the rectangle
-                .height(50.dp)
-                .background(Color.Black)// Set the height of the rectangle
-                .border(2.dp, Color.Gray) // Add a border to make the rectangle visible
-                .padding(8.dp)
-            , // Optional padding inside the rectangle
-            contentAlignment = Alignment.Center // Center the button inside the rectangle
-        ) {
-            TextButton(
+
+            Button(
                 onClick = {
                     navController.navigate("EditProfile")
                 },
-                colors = ButtonDefaults.textButtonColors(contentColor = Color.White)
+                modifier = Modifier
+                    .width(400.dp)
+                    .padding(20.dp),
+                shape = androidx.compose.foundation.shape.RoundedCornerShape(15.dp),
+                colors = ButtonDefaults.buttonColors(
+                    contentColor = Color.White,
+                    containerColor = Color.Blue
+                ),
             ) {
                 Text(
                     text = "Edit Profile",
@@ -85,7 +98,6 @@ fun Account(modifier: Modifier = Modifier, navController: NavController, authvie
                     fontWeight = FontWeight.Bold,
                 )
             }
-        }
 
 
 
@@ -95,9 +107,11 @@ fun Account(modifier: Modifier = Modifier, navController: NavController, authvie
                 authviewModel.signOut() // Assuming a logout method exists in the AuthviewModel
                 navController.navigate("login") // Navigate to the login screen after logout
             },
-            modifier = Modifier.width(300.dp).padding(20.dp),
+            modifier = Modifier
+                .width(300.dp)
+                .padding(20.dp),
             shape = androidx.compose.foundation.shape.RoundedCornerShape(15.dp),
-            colors = androidx.compose.material3.ButtonDefaults.buttonColors(
+            colors = ButtonDefaults.buttonColors(
                 contentColor = Color.White,
                 containerColor = Color.Blue
             ),

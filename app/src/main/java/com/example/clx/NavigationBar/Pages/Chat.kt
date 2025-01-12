@@ -14,7 +14,11 @@ import com.example.clx.AuthviewModel
 
 
 @Composable
-fun Chat(modifier: androidx.compose.ui.Modifier, navController: NavController, authviewModel: AuthviewModel){
+fun Chat(
+    modifier: Modifier,
+    navController: NavController,
+    authviewModel: AuthviewModel,
+){
 
     Column(
         modifier = Modifier.fillMaxSize(),

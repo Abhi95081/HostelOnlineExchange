@@ -1,18 +1,23 @@
 package com.example.clx
 
 
-import com.example.clx.NavigationBar.Pages.Homepage
+
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.clx.NavigationBar.Pages.Chat
 import com.example.clx.NavigationBar.MyBottomAppBar
 import com.example.clx.NavigationBar.Pages.Account
+import com.example.clx.NavigationBar.Pages.Chat
+import com.example.clx.NavigationBar.Pages.Homepage
 import com.example.clx.NavigationBar.Pages.Profile
 import com.example.clx.NavigationBar.Pages.Sell
 import com.example.clx.login.UserLogin
@@ -21,9 +26,11 @@ import signupPage
 
 @Composable
 fun MyNavigation(modifier: Modifier = Modifier, authviewModel: AuthviewModel) {
+
     val navController = rememberNavController()
 
     val isUserLoggedIn by authviewModel.isUserLoggedIn.collectAsState()
+
 
     // LaunchedEffect to handle navigation state when the login status changes
     LaunchedEffect(isUserLoggedIn) {

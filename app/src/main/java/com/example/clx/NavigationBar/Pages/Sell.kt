@@ -10,7 +10,7 @@ import com.example.clx.AuthviewModel
 fun Sell(
     modifier: Modifier = Modifier,
     navController: NavController,
-    authviewModel: AuthviewModel
+    authviewModel: AuthviewModel,
 ) {
 
     Text(text = "Sell Page")

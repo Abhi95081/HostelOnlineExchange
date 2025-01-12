@@ -1,5 +1,6 @@
 package com.example.clx.NavigationBar
 
+
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
@@ -15,13 +16,13 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.example.clx.AuthviewModel
 import com.example.clx.NavigationBar.Pages.Account
+
 import com.example.clx.NavigationBar.Pages.Chat
 import com.example.clx.NavigationBar.Pages.Homepage
 import com.example.clx.NavigationBar.Pages.Sell
@@ -37,7 +38,7 @@ fun MyBottomAppBar(modifier: Modifier, navController: NavController, authviewMod
 
     )
 
-    var selectedItem by remember { mutableIntStateOf(0) }
+    var selectedItem by  rememberSaveable { mutableIntStateOf(0) }
 
     Scaffold(modifier=Modifier.fillMaxSize(),
         bottomBar = {
@@ -58,15 +59,25 @@ fun MyBottomAppBar(modifier: Modifier, navController: NavController, authviewMod
                 }
             }
         }
-        ) { innerPadding ->
-        ContentScreen(modifier.padding(innerPadding),selectedItem, navController, authviewModel)
+    ) { innerPadding ->
+        ContentScreen(
+         modifier =  modifier.padding(innerPadding),
+            selectedindex= selectedItem,
+            navController = navController,
+            authviewModel = authviewModel
+        )
     }
 
 
 }
 
 @Composable
-fun ContentScreen(modifier: Modifier = Modifier,selectedindex : Int, navController: NavController, authviewModel: AuthviewModel) {
+fun ContentScreen(
+    modifier: Modifier = Modifier,
+                  selectedindex : Int,
+                  navController: NavController,
+                  authviewModel: AuthviewModel
+) {
 
     when(selectedindex){
         0 -> Homepage(modifier, navController, authviewModel)

@@ -75,9 +75,9 @@ class AuthviewModel : ViewModel() {
 }
 
 sealed class AuthState {
-     object Authenticated : AuthState()
-     data object Unauthenticated : AuthState()
-     data object Loading : AuthState()
-     class Error(val message: String) : AuthState()
+    object Authenticated : AuthState()
+    data object Unauthenticated : AuthState()
+    data object Loading : AuthState()
+    class Error(val message: String) : AuthState()
 
 }

@@ -65,6 +65,7 @@ dependencies {
     implementation(libs.androidx.runtime.livedata)
     implementation(libs.firebase.vertexai)
     implementation(libs.generativeai)
+    implementation(libs.firebase.firestore.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -117,5 +118,7 @@ dependencies {
 
     //lottie
     implementation("com.airbnb.android:lottie-compose:6.1.0")
+
+
 
 }
