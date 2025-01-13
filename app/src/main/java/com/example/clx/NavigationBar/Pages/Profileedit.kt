@@ -39,7 +39,7 @@ import com.example.clx.AuthviewModel
 fun Profile(
     modifier: Modifier = Modifier,
     navController: NavController,
-    authviewModel: AuthviewModel,
+    authviewModel: AuthviewModel
 ) {
 
 

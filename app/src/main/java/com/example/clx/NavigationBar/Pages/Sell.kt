@@ -152,7 +152,7 @@ fun checkPrice(description: String, onResult: (String, String) -> Unit) {
     // Simulate network delay
     kotlinx.coroutines.GlobalScope.launch {
         kotlinx.coroutines.delay(2000)
-        onResult("$${(100..1000).random()}", "$${(50..500).random()}")
+        onResult("₹${(100..1000).random()}", "₹${(50..500).random()}")
     }
 }
 

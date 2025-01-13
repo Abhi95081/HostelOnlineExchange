@@ -3,8 +3,12 @@ package com.example.clx
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 class AuthviewModel : ViewModel() {
 
@@ -15,6 +19,8 @@ class AuthviewModel : ViewModel() {
 
     private val _authState = MutableLiveData<AuthState>()
     val authState: MutableLiveData<AuthState> = _authState
+
+
 
     init {
         checkAuthState()
@@ -66,10 +72,15 @@ class AuthviewModel : ViewModel() {
     }
 
     fun signOut() {
-        auth.signOut()
-        _isUserLoggedIn.value = false
-        _authState.value = AuthState.Unauthenticated
+        _authState.value = AuthState.Loading
+        CoroutineScope(Dispatchers.IO).launch {
+            delay(1500) // Simulate a delay for UX (optional)
+            auth.signOut()
+            _isUserLoggedIn.value = false
+            _authState.postValue(AuthState.Unauthenticated)
+        }
     }
+
 
 
 }
