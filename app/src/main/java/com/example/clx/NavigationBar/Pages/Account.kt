@@ -39,7 +39,12 @@ fun Account(
     authviewModel: AuthviewModel,
 ) {
 
-    var name by remember { mutableStateOf("HLX User") }
+    val name by remember { mutableStateOf("HLX User") }
+
+    var number by remember {
+        mutableStateOf("")
+    }
+
 
     Column(
         modifier = Modifier

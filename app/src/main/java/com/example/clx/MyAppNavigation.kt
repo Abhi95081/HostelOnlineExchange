@@ -11,6 +11,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -57,7 +58,7 @@ fun MyNavigation(modifier: Modifier = Modifier, authviewModel: AuthviewModel) {
                 signupPage(modifier, navController, authviewModel)
             }
             composable("home") {
-                Homepage(modifier, navController, authviewModel)
+                Homepage(modifier, navController,authviewModel)
             }
 
             composable("bottom_nav_home") {

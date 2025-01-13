@@ -118,8 +118,6 @@ fun Profile(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Second border line for contact information
-        Divider(modifier = Modifier.fillMaxWidth().height(1.dp).padding(vertical = 10.dp))
 
         // Contact information section (mobile number or email)
         Text(
