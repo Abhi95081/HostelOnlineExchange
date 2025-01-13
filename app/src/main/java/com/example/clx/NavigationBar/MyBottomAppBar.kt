@@ -28,7 +28,10 @@ import com.example.clx.NavigationBar.Pages.Homepage
 import com.example.clx.NavigationBar.Pages.Sell
 
 @Composable
-fun MyBottomAppBar(modifier: Modifier, navController: NavController, authviewModel: AuthviewModel) {
+fun MyBottomAppBar(
+                    modifier: Modifier,
+                   navController: NavController,
+                   authviewModel: AuthviewModel) {
 
     val navItemList = listOf(
         Navitems("Home",Icons.Default.Home),
@@ -40,7 +43,9 @@ fun MyBottomAppBar(modifier: Modifier, navController: NavController, authviewMod
 
     var selectedItem by  rememberSaveable { mutableIntStateOf(0) }
 
-    Scaffold(modifier=Modifier.fillMaxSize(),
+    Scaffold(
+        modifier=Modifier.fillMaxSize(),
+
         bottomBar = {
             NavigationBar {
                 navItemList.forEachIndexed { index, navitems ->

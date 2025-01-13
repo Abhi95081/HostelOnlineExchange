@@ -67,6 +67,7 @@ fun MyNavigation(modifier: Modifier = Modifier, authviewModel: AuthviewModel) {
             composable("user") {
                 UserLogin(modifier, navController, authviewModel)
             }
+
             composable("account") {
                 Account(modifier, navController, authviewModel)
             }

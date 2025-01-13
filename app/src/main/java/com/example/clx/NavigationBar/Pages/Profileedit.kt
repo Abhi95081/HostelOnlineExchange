@@ -35,14 +35,17 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.clx.AuthviewModel
 
+import androidx.compose.foundation.Image
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.layout.ContentScale
+import com.example.clx.R // Replace with your actual R file import
+
 @Composable
 fun Profile(
     modifier: Modifier = Modifier,
     navController: NavController,
     authviewModel: AuthviewModel
 ) {
-
-
     // State variables to hold the user input data
     var name by remember { mutableStateOf("") }
     var contactInfo by remember { mutableStateOf("") }
@@ -56,95 +59,147 @@ fun Profile(
         horizontalAlignment = Alignment.Start
     ) {
         // Close button
-        TextButton(onClick = {
-            navController.popBackStack()
-        }) {
+        TextButton(onClick = { navController.popBackStack() }) {
             Icon(
                 imageVector = Icons.Filled.Close,
                 contentDescription = "Close",
-                modifier = Modifier.size(30.dp)
+                modifier = Modifier.size(30.dp),
+                tint = Color.Red // Vibrant red color for the close icon
             )
         }
 
-        // Spacer for space between the close button and content
-        Spacer(modifier = Modifier.height(30.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
-        // "Basic information" text
+        // Header
         Text(
-            text = "Basic information",
+            text = "Basic Information",
             fontWeight = FontWeight.Bold,
-            fontSize = 22.sp,
+            fontSize = 24.sp,
+            color = Color(0xFF6200EA), // Deep Purple color
             modifier = Modifier.padding(start = 16.dp)
         )
 
-        // Border line below "Basic information"
-        Spacer(modifier = Modifier.height(16.dp))
+        Divider(
+            color = Color(0xFF6200EA),
+            thickness = 2.dp,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 10.dp)
+        )
 
-        // Profile image selector
+        Spacer(modifier = Modifier.height(20.dp))
+
+        // Profile Image Selector
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start
         ) {
-            // Circular image placeholder
+            // Circular image placeholder or default image
             Box(
                 modifier = Modifier
                     .size(100.dp)
-                    .border(2.dp, Color.Gray, CircleShape)
-            )
+                    .border(2.dp, Color.Gray, CircleShape),
+                contentAlignment = Alignment.Center
+            ) {
+                if (imageUri == null) {
+                    // Default user image
+                    Image(
+                        painter = painterResource(id = R.drawable.userimage), // Replace with your default image resource
+                        contentDescription = "Default User Image",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .size(100.dp)
+                            .border(2.dp, Color.Gray, CircleShape)
+                            .padding(2.dp)
+                    )
+                } else {
+                    // Load the selected image (e.g., from URI)
+                    // For demonstration, you can integrate Coil or Glide for image loading.
+                }
+            }
             Spacer(modifier = Modifier.width(16.dp))
 
-            // Button to take a picture from the gallery
-            Button(onClick = { /* Open gallery to select image */ }) {
+            Button(
+                onClick = { /* Open gallery to select image */ },
+                colors = androidx.compose.material.ButtonDefaults.buttonColors(
+                    backgroundColor = Color(0xFF03A9F4), // Light Blue
+                    contentColor = Color.White
+                )
+            ) {
                 Text("Select Picture")
             }
         }
 
-        // Spacer for space between sections
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
-        // Text field for name or other general information
+        // Name Input
         Text(
-            text = "Name: ",
-            fontWeight = FontWeight.Bold,
+            text = "Name",
+            fontWeight = FontWeight.SemiBold,
+            fontSize = 18.sp,
+            color = Color(0xFF03A9F4), // Light Blue
             modifier = Modifier.padding(start = 16.dp)
         )
-        // TextField for name input
         TextField(
             value = name,
             onValueChange = { name = it },
-            modifier = Modifier.fillMaxWidth(),
-            label = { Text("Enter your name") }
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 10.dp),
+            label = { Text("Enter your name") },
+            colors = androidx.compose.material.TextFieldDefaults.textFieldColors(
+                backgroundColor = Color(0xFFE3F2FD), // Light Blue Background
+                focusedIndicatorColor = Color(0xFF03A9F4), // Light Blue Line
+                cursorColor = Color(0xFF03A9F4) // Light Blue Cursor
+            )
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
-
-        // Contact information section (mobile number or email)
+        // Contact Information Input
         Text(
             text = "Contact Information",
-            fontWeight = FontWeight.Bold,
+            fontWeight = FontWeight.SemiBold,
+            fontSize = 18.sp,
+            color = Color(0xFF03A9F4),
             modifier = Modifier.padding(start = 16.dp)
         )
-        // TextField for contact information input (email or mobile)
         TextField(
             value = contactInfo,
             onValueChange = { contactInfo = it },
-            modifier = Modifier.fillMaxWidth(),
-            label = { Text("Enter your Mobile Number") }
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 10.dp),
+            label = { Text("Enter your Mobile Number") },
+            colors = androidx.compose.material.TextFieldDefaults.textFieldColors(
+                backgroundColor = Color(0xFFE3F2FD),
+                focusedIndicatorColor = Color(0xFF03A9F4),
+                cursorColor = Color(0xFF03A9F4)
+            )
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(30.dp))
 
         // Save Button
         Button(
             onClick = {
-
+                // Navigate to the Account screen while preserving bottom navigation
                 navController.navigate("account")
             },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp),
+            colors = androidx.compose.material.ButtonDefaults.buttonColors(
+                backgroundColor = Color(0xFF6200EA), // Deep Purple
+                contentColor = Color.White
+            ),
+            shape = androidx.compose.foundation.shape.RoundedCornerShape(10.dp)
         ) {
-            Text("Save")
+            Text(
+                text = "Save",
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold
+            )
         }
     }
 }
-
