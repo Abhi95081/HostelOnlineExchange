@@ -3,18 +3,7 @@ package com.example.clx.NavigationBar.Pages
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -22,21 +11,18 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import coil.compose.rememberAsyncImagePainter
 import com.example.clx.AuthState
 import com.example.clx.AuthviewModel
 import com.example.clx.R
@@ -46,14 +32,13 @@ fun Account(
     modifier: Modifier = Modifier,
     navController: NavController,
     authviewModel: AuthviewModel,
-    name: String = "HLX User",  // Default name
+    name: String = "HLX User", // Default name
     mobile: String = "Not Provided", // Default mobile
-    imageUri: String?
+    imageUri: String? = null
 ) {
     val authState = authviewModel.authState.observeAsState(AuthState.Unauthenticated)
 
     Box(modifier = Modifier.fillMaxSize()) {
-        // Main Content
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -61,63 +46,76 @@ fun Account(
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(40.dp))
 
             // Title
             Text(
-                text = "Your Account Details",
+                text = "Account Details",
                 fontSize = 28.sp,
                 color = Color(0xFF6200EA),
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(bottom = 20.dp)
+                fontWeight = FontWeight.Bold
             )
 
-            // User Image and Details
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
+            Spacer(modifier = Modifier.height(30.dp))
+
+            // Profile Picture
+            Box(
                 modifier = Modifier
-                    .padding(20.dp)
-                    .background(Color(0xFFF1F1F1), shape = RoundedCornerShape(20.dp))
-                    .padding(20.dp)
-                    .fillMaxWidth()
+                    .size(120.dp)
+                    .clip(CircleShape)
+                    .border(3.dp, Color.Gray, CircleShape),
+                contentAlignment = Alignment.Center
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.userimage), // Replace with your default user image
-                    contentDescription = "User Image",
-                    modifier = Modifier
-                        .size(100.dp)
-                        .clip(CircleShape)
-                        .border(2.dp, Color.Gray, CircleShape)
-                )
-                Spacer(modifier = Modifier.width(20.dp))
-                Column {
-                    Text(
-                        text = name,
-                        fontSize = 22.sp,
-                        color = Color.Black,
-                        fontWeight = FontWeight.Bold
+                if (imageUri == null) {
+                    Image(
+                        painter = painterResource(id = R.drawable.userimage),
+                        contentDescription = "Default User Image",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier.clip(CircleShape)
                     )
-                    Text(
-                        text = mobile,
-                        fontSize = 18.sp,
-                        color = Color.Gray
+                } else {
+                    Image(
+                        painter = rememberAsyncImagePainter(imageUri),
+                        contentDescription = "User Image",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier.clip(CircleShape)
                     )
                 }
             }
 
-            Spacer(modifier = Modifier.height(30.dp))
+            Spacer(modifier = Modifier.height(20.dp))
+
+            // User Details
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(
+                    text = name,
+                    fontSize = 22.sp,
+                    color = Color.Black,
+                    fontWeight = FontWeight.Bold
+                )
+
+                Spacer(modifier = Modifier.height(5.dp))
+
+                Text(
+                    text = mobile,
+                    fontSize = 18.sp,
+                    color = Color.Gray
+                )
+            }
+
+            Spacer(modifier = Modifier.height(40.dp))
 
             // Edit Profile Button
             Button(
                 onClick = { navController.navigate("EditProfile") },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 10.dp),
+                    .height(50.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFF6200EA),
                     contentColor = Color.White
                 ),
-                shape = RoundedCornerShape(15.dp)
+                shape = RoundedCornerShape(12.dp)
             ) {
                 Text(
                     text = "Edit Profile",
@@ -133,12 +131,12 @@ fun Account(
                 onClick = { authviewModel.signOut() },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 10.dp),
+                    .height(50.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Red,
                     contentColor = Color.White
                 ),
-                shape = RoundedCornerShape(15.dp)
+                shape = RoundedCornerShape(12.dp)
             ) {
                 Text(
                     text = "Logout",
@@ -153,8 +151,7 @@ fun Account(
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(Color.Black.copy(alpha = 0.6f))
-                    .clickable(enabled = false) {},
+                    .background(Color.Black.copy(alpha = 0.6f)),
                 contentAlignment = Alignment.Center
             ) {
                 CircularProgressIndicator(color = Color.White)
