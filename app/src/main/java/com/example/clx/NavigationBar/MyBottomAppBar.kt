@@ -79,16 +79,21 @@ fun MyBottomAppBar(
 @Composable
 fun ContentScreen(
     modifier: Modifier = Modifier,
-                  selectedindex : Int,
-                  navController: NavController,
-                  authviewModel: AuthviewModel
+    selectedindex: Int,
+    navController: NavController,
+    authviewModel: AuthviewModel
 ) {
-
-    when(selectedindex){
+    when (selectedindex) {
         0 -> Homepage(modifier, navController, authviewModel)
-        1 ->  Chat(modifier, navController, authviewModel)
-        2 ->  Sell(modifier, navController, authviewModel)
-        3 -> Account(modifier, navController, authviewModel)
-
+        1 -> Chat(modifier, navController, authviewModel)
+        2 -> Sell(modifier, navController, authviewModel)
+        3 -> Account(
+            modifier,
+            navController,
+            authviewModel,
+            name = "Default User",
+            mobile = "Not Provided",
+            imageUri = null
+        )
     }
 }

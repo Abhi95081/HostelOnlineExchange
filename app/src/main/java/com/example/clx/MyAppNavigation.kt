@@ -15,6 +15,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.clx.NavigationBar.MyBottomAppBar
 import com.example.clx.NavigationBar.Pages.Account
 import com.example.clx.NavigationBar.Pages.Chat
@@ -68,9 +69,20 @@ fun MyNavigation(modifier: Modifier = Modifier, authviewModel: AuthviewModel) {
                 UserLogin(modifier, navController, authviewModel)
             }
 
-            composable("account") {
-                Account(modifier, navController, authviewModel)
+            composable(
+                route = "account/{name}/{mobile}/{imageUri}",
+                arguments = listOf(
+                    navArgument("name") { type = NavType.StringType },
+                    navArgument("mobile") { type = NavType.StringType },
+                    navArgument("imageUri") { type = NavType.StringType; nullable = true }
+                )
+            ) { backStackEntry ->
+                val name = backStackEntry.arguments?.getString("name") ?: "HLX User"
+                val mobile = backStackEntry.arguments?.getString("mobile") ?: "Not Provided"
+                val imageUri = backStackEntry.arguments?.getString("imageUri")
+                Account(modifier, navController, authviewModel, name, mobile, imageUri)
             }
+
             composable("chat") {
                 Chat(modifier, navController, authviewModel)
             }

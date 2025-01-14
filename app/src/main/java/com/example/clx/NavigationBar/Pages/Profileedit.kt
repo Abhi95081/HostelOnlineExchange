@@ -1,5 +1,8 @@
 package com.example.clx.NavigationBar.Pages
 
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -38,18 +41,24 @@ import com.example.clx.AuthviewModel
 import androidx.compose.foundation.Image
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.layout.ContentScale
+import coil.compose.rememberAsyncImagePainter
 import com.example.clx.R // Replace with your actual R file import
-
 @Composable
 fun Profile(
     modifier: Modifier = Modifier,
     navController: NavController,
     authviewModel: AuthviewModel
 ) {
-    // State variables to hold the user input data
     var name by remember { mutableStateOf("") }
     var contactInfo by remember { mutableStateOf("") }
-    var imageUri by remember { mutableStateOf<String?>(null) }
+    var imageUri by remember { mutableStateOf<Uri?>(null) }
+
+    // Launcher for opening the gallery and selecting an image
+    val galleryLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        imageUri = uri
+    }
 
     Column(
         modifier = Modifier
@@ -58,24 +67,22 @@ fun Profile(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start
     ) {
-        // Close button
         TextButton(onClick = { navController.popBackStack() }) {
             Icon(
                 imageVector = Icons.Filled.Close,
                 contentDescription = "Close",
                 modifier = Modifier.size(30.dp),
-                tint = Color.Red // Vibrant red color for the close icon
+                tint = Color.Red
             )
         }
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        // Header
         Text(
             text = "Basic Information",
             fontWeight = FontWeight.Bold,
             fontSize = 24.sp,
-            color = Color(0xFF6200EA), // Deep Purple color
+            color = Color(0xFF6200EA),
             modifier = Modifier.padding(start = 16.dp)
         )
 
@@ -89,12 +96,10 @@ fun Profile(
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        // Profile Image Selector
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start
         ) {
-            // Circular image placeholder or default image
             Box(
                 modifier = Modifier
                     .size(100.dp)
@@ -102,9 +107,8 @@ fun Profile(
                 contentAlignment = Alignment.Center
             ) {
                 if (imageUri == null) {
-                    // Default user image
                     Image(
-                        painter = painterResource(id = R.drawable.userimage), // Replace with your default image resource
+                        painter = painterResource(id = R.drawable.userimage),
                         contentDescription = "Default User Image",
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
@@ -113,16 +117,24 @@ fun Profile(
                             .padding(2.dp)
                     )
                 } else {
-                    // Load the selected image (e.g., from URI)
-                    // For demonstration, you can integrate Coil or Glide for image loading.
+                    Image(
+                        painter = rememberAsyncImagePainter(imageUri),
+                        contentDescription = "Selected User Image",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .size(100.dp)
+                            .border(2.dp, Color.Gray, CircleShape)
+                            .padding(2.dp)
+                    )
                 }
             }
+
             Spacer(modifier = Modifier.width(16.dp))
 
             Button(
-                onClick = { /* Open gallery to select image */ },
+                onClick = { galleryLauncher.launch("image/*") },
                 colors = androidx.compose.material.ButtonDefaults.buttonColors(
-                    backgroundColor = Color(0xFF03A9F4), // Light Blue
+                    backgroundColor = Color(0xFF03A9F4),
                     contentColor = Color.White
                 )
             ) {
@@ -132,12 +144,11 @@ fun Profile(
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        // Name Input
         Text(
             text = "Name",
             fontWeight = FontWeight.SemiBold,
             fontSize = 18.sp,
-            color = Color(0xFF03A9F4), // Light Blue
+            color = Color(0xFF03A9F4),
             modifier = Modifier.padding(start = 16.dp)
         )
         TextField(
@@ -148,15 +159,14 @@ fun Profile(
                 .padding(vertical = 10.dp),
             label = { Text("Enter your name") },
             colors = androidx.compose.material.TextFieldDefaults.textFieldColors(
-                backgroundColor = Color(0xFFE3F2FD), // Light Blue Background
-                focusedIndicatorColor = Color(0xFF03A9F4), // Light Blue Line
-                cursorColor = Color(0xFF03A9F4) // Light Blue Cursor
+                backgroundColor = Color(0xFFE3F2FD),
+                focusedIndicatorColor = Color(0xFF03A9F4),
+                cursorColor = Color(0xFF03A9F4)
             )
         )
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        // Contact Information Input
         Text(
             text = "Contact Information",
             fontWeight = FontWeight.SemiBold,
@@ -180,17 +190,17 @@ fun Profile(
 
         Spacer(modifier = Modifier.height(30.dp))
 
-        // Save Button
         Button(
             onClick = {
-                // Navigate to the Account screen while preserving bottom navigation
-                navController.navigate("account")
-            },
+                navController.navigate("account/${Uri.encode(name)}/${Uri.encode(contactInfo)}/${Uri.encode(
+                    imageUri.toString()
+                )}")
+                      },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(10.dp),
             colors = androidx.compose.material.ButtonDefaults.buttonColors(
-                backgroundColor = Color(0xFF6200EA), // Deep Purple
+                backgroundColor = Color(0xFF6200EA),
                 contentColor = Color.White
             ),
             shape = androidx.compose.foundation.shape.RoundedCornerShape(10.dp)

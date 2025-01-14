@@ -47,7 +47,8 @@ fun Account(
     navController: NavController,
     authviewModel: AuthviewModel,
     name: String = "HLX User",  // Default name
-    mobile: String = "Not Provided"  // Default mobile
+    mobile: String = "Not Provided", // Default mobile
+    imageUri: String?
 ) {
     val authState = authviewModel.authState.observeAsState(AuthState.Unauthenticated)
 
